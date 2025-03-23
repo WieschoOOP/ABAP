@@ -1,0 +1,56 @@
+@Metadata.layer: #CUSTOMER
+@UI.headerInfo:
+{
+  typeName: 'Antrag',
+  typeNamePlural: 'Anträge',
+  title.value: 'id',
+  description.value: 'startdatum'
+}
+annotate view zmu_antrag_c with
+{
+
+  /* Facets */
+  @UI.facet:
+  [
+    { position: 10, targetQualifier: 'AntragDetails', label: 'Antragsdetails', type: #FIELDGROUP_REFERENCE },
+    { position: 20, targetQualifier: 'AdminData', label: 'Administrative Daten', type: #FIELDGROUP_REFERENCE }
+  ]
+  
+   /* Actions */
+  @UI.lineItem:
+  [
+    { position: 10, dataAction: 'ApproveAntrag', label: 'Approve', type: #FOR_ACTION },
+    { position: 20, dataAction: 'DenyAntrag', label: 'Deny', type: #FOR_ACTION }
+  ]
+
+  @UI.selectionField: [{ position: 10 }]
+  @UI.fieldGroup: [{ position: 10, qualifier: 'AntragDetails', label: 'Antragsteller' }]
+  antragsteller;
+
+  @UI.fieldGroup: [{ position: 20, qualifier: 'AntragDetails', label: 'Genehmigender' }]
+  genehmigender;
+
+  @UI.lineItem: [{ position: 10 }]
+  @UI.fieldGroup: [{ position: 30, qualifier: 'AntragDetails', label: 'Startdatum' }]
+  startdatum;
+
+  @UI.lineItem: [{ position: 20 }]
+  @UI.fieldGroup: [{ position: 40, qualifier: 'AntragDetails', label: 'Enddatum' }]
+  enddatum;
+
+  @UI.lineItem: [{ position: 30 }]
+  @UI.fieldGroup: [{ position: 50, qualifier: 'AntragDetails', label: 'Urlaubstage' }]
+  urlaubstage;
+
+  @UI.lineItem: [{ position: 40 }]
+  @UI.fieldGroup: [{ position: 60, qualifier: 'AntragDetails', label: 'Kommentar' }]
+  kommentar;
+
+  @UI.lineItem: [{ position: 50 }]
+  @UI.selectionField: [{ position: 20 }]
+  @UI.fieldGroup: [{ position: 70, qualifier: 'AntragDetails', label: 'Status' }]
+  status;
+
+  @UI.fieldGroup: [{ position: 20, qualifier: 'AdminData', label: 'ID'}]
+  id;
+}

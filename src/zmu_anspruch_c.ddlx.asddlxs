@@ -1,0 +1,30 @@
+@Metadata.layer: #CUSTOMER
+@UI.headerInfo: {
+  typeName: 'Anspruch',
+  typeNamePlural: 'Ansprüche',
+  title.value: 'id',
+  description.value: 'jahr'
+}
+annotate view zmu_anspruch_c with {
+
+  /* Facets */
+  @UI.facet: [
+    { position: 10, targetQualifier: 'AnspruchDetails', label: 'Anspruchdetails', type: #FIELDGROUP_REFERENCE },
+    { position: 20, targetQualifier: 'AdminData', label: 'Administrativedaten', type: #FIELDGROUP_REFERENCE }
+  ]
+
+  /* Fields */
+  @UI.fieldGroup: [{ position: 20, qualifier: 'AdminData', label: 'id'  }]
+  id;
+
+  @UI.fieldGroup: [{ position: 10, qualifier: 'AnspruchDetails', label: 'Mitarbeiter'  }]
+  mitarbeiter;
+
+  @UI.fieldGroup: [{ position: 20, qualifier: 'AnspruchDetails', label: 'Jahr'  }]
+  jahr;
+
+  @UI.lineItem: [{ position: 10 }]
+  @UI.fieldGroup: [{ position: 30, qualifier: 'AnspruchDetails', label: 'Urlaubstage'  }]
+  urlaubstage;
+
+}

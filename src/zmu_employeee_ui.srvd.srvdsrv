@@ -1,0 +1,6 @@
+@EndUserText.label: 'Travel'
+define service ZMU_EMPLOYEEE_UI {
+  expose ZMU_EMPLOYEE_C as EMP;
+  expose ZMU_Antrag_C as Antrag;
+  expose ZMU_ANSPRUCH_C as Anspruch;
+}

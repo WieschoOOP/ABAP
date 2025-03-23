@@ -1,0 +1,76 @@
+managed implementation in class ZMU_EMPLOYEE unique;
+strict ( 2 );
+
+define behavior for ZMU_EMPLOYEE_R alias Employee
+persistent table zmu_employee_a
+lock master
+authorization master ( instance )
+//etag master <field_name>
+{
+  create;
+  update;
+  delete;
+
+
+  field ( readonly, numbering: managed ) ID;
+
+  association _Antrag { create; }
+
+    static action ShowTestMessage;
+
+
+    validation ValidatePTO on save { create; }
+    validation ValidateAlreadyDone on save { create; }
+
+
+  mapping for zmu_employee_a corresponding
+    {
+      id                = ID;
+      mitarbeiternummer = Mitarbeiternummer;
+      vorname           = Vorname;
+      nachname          = Nachname;
+      eintrittsdatum    = Eintrittsdatum;
+    }
+}
+
+
+
+
+define behavior for Zmu_antrag_r alias Antrag
+persistent table zmu_antrag_a
+lock dependent by _Employee
+authorization dependent by _Employee
+//etag master <field_name>
+{
+  update;
+  delete;
+
+  association _Employee;
+
+  validation ValidateDates on save { create; }
+  action ApproveAntrag result [1] $self;
+  action DenyAntrag result [1] $self;
+
+  field ( readonly, numbering : managed ) id;
+  field ( readonly ) antragsteller, status, urlaubstage;
+
+  field ( mandatory : create ) Genehmigender, Startdatum, Enddatum;
+
+determination DetermineStatus on modify { create; }
+determination DeterminePTO on modify { create; }
+determination resetStatus on save { create; update; }
+
+
+
+    mapping for zmu_antrag_a corresponding
+    {
+      id            = Id;
+      antragsteller = Antragsteller;
+      genehmigender = Genehmigender;
+      startdatum    = Startdatum;
+      enddatum      = Enddatum;
+      urlaubstage   = Urlaubstage;
+      kommentar     = Kommentar;
+      status        = Status;
+    }
+}
